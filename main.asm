@@ -21,9 +21,10 @@ section .data
     aa004l equ $-aa004s-1
     aa005s db "Congratulation, you got the flag: ", 0
     aa005l equ $-aa005s-1
+    aa006s db "Original Post: https://www.facebook.com/ammarfaizi2/posts/3492973720732264", 10, 10, 0
+    aa006l equ $-aa006s-1
 
-section .text
-    global _start
+global _start
 
 _start:
     call main
@@ -31,6 +32,9 @@ _start:
 main:
     push rbp
     mov rbp, rsp
+    mov rdi, aa006s
+    mov rsi, aa006l
+    call write_out
     call ask_input001
     test al, al
     je .pwwrong
