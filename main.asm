@@ -9,7 +9,6 @@ section .bss
     input001 resb 300
     input002 resb 300
     input003 resb 300
-    flag_carrier resb 300
 
 section .data
     aa001s db "Enter password: ", 0
@@ -42,9 +41,57 @@ main:
     test al, al
     je .pwwrong
 .pwtrue:
+    mov rax, [input001]
+    mov rdi, 0x335efd7ae7b8de7
+    add rax, rdi
+    mov [input001], rax
+
+    mov rax, [input001 + 8]
+    mov rdi, 0x137f719a66f9f784
+    add rax, rdi
+    mov [input001 + 8], rax
+
+    mov rax, [input002]
+    mov rdi, 0x2900f5cd3b033332
+    sub rax, rdi
+    mov [input002], rax
+
+    mov rax, [input002 + 8]
+    mov rdi, 0x1db0d359fe2ab11d
+    sub rax, rdi
+    mov [input002 + 8], rax
+
+    mov eax, [input002 + 16],
+    mov edi, 0x9fd35
+    sub eax, edi
+    mov [input002 + 16], eax
+
+    mov rax, [input003]
+    mov rdi, 0x193b42cd7bfba1a
+    add rax, rdi
+    mov [input003], rax
+
+    mov rax, [input003 + 8]
+    mov rdi, 0x360a6f0a101d741f
+    sub rax, rdi
+    mov [input003 + 8], rax
+
     mov rdi, aa005s
     mov rsi, aa005l
     call write_out
+
+    mov rdi, input001
+    mov rsi, 16
+    call write_out
+
+    mov rdi, input002
+    mov rsi, 19
+    call write_out
+
+    mov rdi, input003
+    mov rsi, 16
+    call write_out
+
     jmp .epilogue
 .pwwrong:
     mov rdi, aa004s
@@ -208,3 +255,4 @@ exit:
     mov rax, 60
     xor rdi, rdi
     syscall
+
